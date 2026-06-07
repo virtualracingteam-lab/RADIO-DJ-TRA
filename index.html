@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>DJ TRA FORZADOR</title>
+    <title>DJ TRA LIVE DEFINITIVO</title>
     <style>
         html, body { background: #000000; margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; }
         .centrado { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
@@ -12,40 +12,37 @@
 <body>
 
 <div class="centrado">
-    <audio id="reproductorTRA" controls autoplay muted loop crossorigin="anonymous">
+    <!-- Usamos la IP y el puerto DIRECTOS sin pasar por el script .php rebelde -->
+    <audio id="reproductorTRA" controls autoplay crossorigin="anonymous">
+        <source src="http://82.145.63.6:5563/;stream" type="audio/mpeg">
         <source src="https://fpsnew1.listen2myradio.com:2199/listen.php?ip=82.145.63.6&port=5563&type=ice&mount=stream" type="audio/mp3">
     </audio>
 </div>
 
 <script type="text/javascript">
     var miAudio = document.getElementById('reproductorTRA');
+    miAudio.volume = 1.0;
 
-    function quitarSilencioFuerza() {
-        // Rompemos el candado quitando el mute y subiendo volumen
-        miAudio.muted = false;
-        miAudio.volume = 1.0;
+    function forzarPlay() {
         miAudio.play().catch(function(e) {
-            console.log("Esperando un milisegundo más...");
+            console.log("Esperando interacción del navegador...");
         });
     }
 
-    // DISPARADOR 1: Espera medio segundo (500ms) a que el juego trague el reproductor y le quita el mute solo
-    setTimeout(quitarSilencioFuerza, 500);
+    // Intentar arrancar en frío inmediatamente
+    forzarPlay();
 
-    // DISPARADOR 2: Un bucle rápido que insiste cada 300ms en quitar el silencio por si el internet va lento
-    var bucleMute = setInterval(function() {
-        if (miAudio.muted === false && !miAudio.paused) {
-            clearInterval(bucleMute); // Si ya suena alto y claro, apagamos el bucle
+    // Bucle agresivo que intenta darle al play cada 500ms automáticamente
+    var bucleFuerza = setInterval(function() {
+        if (!miAudio.paused) {
+            clearInterval(bucleFuerza); // Si ya arrancó, paramos el bucle
         } else {
-            quitarSilencioFuerza();
+            forzarPlay();
         }
-    }, 300);
+    }, 500);
 
-    // DISPARADOR 3 (Seguridad Utherverse): Si el juego congela los procesos internos hasta que el avatar se mueve,
-    // en cuanto hagas un clic en la pantalla para andar o uses el teclado, el sonido se libera al 100% solo
-    window.addEventListener('click', function() { quitarSilencioFuerza(); clearInterval(bucleMute); }, { once: true });
-    window.addEventListener('keydown', function() { quitarSilencioFuerza(); clearInterval(bucleMute); }, { once: true });
-    window.addEventListener('mousemove', function() { quitarSilencioFuerza(); clearInterval(bucleMute); }, { once: true });
+    // Si tu Chrome es ultra-estricto, haz un solo clic en la pantalla de la web y romperá el candado
+    window.addEventListener('click', function() { forzarPlay(); clearInterval(bucleFuerza); }, { once: true });
 </script>
 
 </body>
