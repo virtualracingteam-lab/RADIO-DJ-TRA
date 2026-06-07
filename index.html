@@ -1,70 +1,18 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>DJ TRA - TEST DE AUDIO</title>
-    <style>
-        html, body { 
-            background: #000000; 
-            margin: 0; 
-            padding: 0; 
-            overflow: hidden; 
-            width: 100%; 
-            height: 100%; 
-        }
-        .centrado { 
-            width: 100%; 
-            height: 100%; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-        }
-        audio { 
-            width: 270px; 
-            height: 40px; 
-            filter: invert(1); 
-            border-radius: 40px; 
-        }
-    </style>
-</head>
-<body>
-
-<div class="centrado">
-    <!-- REPRODUCTOR CON EMISIÓN ABIERTA 24/7 PARA PRUEBA -->
-    <audio id="reproductorTRA" controls autoplay crossorigin="anonymous">
-        <source src="https://ibizaontheradio.com:8000/stream" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-</div>
-
+<!-- BEGINS: AUTO-GENERATED MUSES RADIO PLAYER CODE -->
+<script type="text/javascript" src="https://hosted.muses.org/mrp.js"></script>
 <script type="text/javascript">
-    var miAudio = document.getElementById('reproductorTRA');
-    miAudio.volume = 1.0;
-
-    function forzarPlay() {
-        miAudio.play().catch(function(e) {
-            console.log("Esperando interacción con la pantalla...");
-        });
-    }
-
-    // Intenta reproducir solo en cuanto carga
-    forzarPlay();
-
-    // Bucle para insistir cada medio segundo
-    var bucleFuerza = setInterval(function() {
-        if (!miAudio.paused) {
-            clearInterval(bucleFuerza); 
-        } else {
-            forzarPlay();
-        }
-    }, 500);
-
-    // Desbloqueo inmediato al hacer un clic en cualquier parte de la pantalla
-    window.addEventListener('click', function() { 
-        forzarPlay(); 
-        clearInterval(bucleFuerza); 
-    }, { once: true });
+MRP.insert({
+'url':'https://fpsnew1.listen2myradio.com:2199/listen.php?ip=82.145.63.6&port=5563&type=ice&mount=stream',
+'volume':100,
+'autoplay':true,
+'forceHTML5':true,
+'jsevents':true,
+'buffering':0,
+'title':'DJ TRA',
+'wmode':'transparent',
+'skin':'mcclean',
+'width':180,
+'height':60
+});
 </script>
-
-</body>
-</html>
+<!-- ENDS: AUTO-GENERATED MUSES RADIO PLAYER CODE -->
