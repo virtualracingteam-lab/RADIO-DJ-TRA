@@ -2,20 +2,38 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>DJ TRA LIVE DEFINITIVO</title>
+    <title>DJ TRA - TEST DE AUDIO</title>
     <style>
-        html, body { background: #000000; margin: 0; padding: 0; overflow: hidden; width: 100%; height: 100%; }
-        .centrado { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
-        audio { width: 270px; height: 40px; filter: invert(1); border-radius: 40px; }
+        html, body { 
+            background: #000000; 
+            margin: 0; 
+            padding: 0; 
+            overflow: hidden; 
+            width: 100%; 
+            height: 100%; 
+        }
+        .centrado { 
+            width: 100%; 
+            height: 100%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+        audio { 
+            width: 270px; 
+            height: 40px; 
+            filter: invert(1); 
+            border-radius: 40px; 
+        }
     </style>
 </head>
 <body>
 
 <div class="centrado">
-    <!-- Usamos la IP y el puerto DIRECTOS sin pasar por el script .php rebelde -->
+    <!-- REPRODUCTOR CON EMISIÓN ABIERTA 24/7 PARA PRUEBA -->
     <audio id="reproductorTRA" controls autoplay crossorigin="anonymous">
-        <source src="http://82.145.63.6:5563/;stream" type="audio/mpeg">
-        <source src="https://fpsnew1.listen2myradio.com:2199/listen.php?ip=82.145.63.6&port=5563&type=ice&mount=stream" type="audio/mp3">
+        <source src="https://ibizaontheradio.com:8000/stream" type="audio/mpeg">
+        Your browser does not support the audio element.
     </audio>
 </div>
 
@@ -25,24 +43,27 @@
 
     function forzarPlay() {
         miAudio.play().catch(function(e) {
-            console.log("Esperando interacción del navegador...");
+            console.log("Esperando interacción con la pantalla...");
         });
     }
 
-    // Intentar arrancar en frío inmediatamente
+    // Intenta reproducir solo en cuanto carga
     forzarPlay();
 
-    // Bucle agresivo que intenta darle al play cada 500ms automáticamente
+    // Bucle para insistir cada medio segundo
     var bucleFuerza = setInterval(function() {
         if (!miAudio.paused) {
-            clearInterval(bucleFuerza); // Si ya arrancó, paramos el bucle
+            clearInterval(bucleFuerza); 
         } else {
             forzarPlay();
         }
     }, 500);
 
-    // Si tu Chrome es ultra-estricto, haz un solo clic en la pantalla de la web y romperá el candado
-    window.addEventListener('click', function() { forzarPlay(); clearInterval(bucleFuerza); }, { once: true });
+    // Desbloqueo inmediato al hacer un clic en cualquier parte de la pantalla
+    window.addEventListener('click', function() { 
+        forzarPlay(); 
+        clearInterval(bucleFuerza); 
+    }, { once: true });
 </script>
 
 </body>
